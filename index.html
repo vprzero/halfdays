@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halfdays — Microsoft Copilot Agents for Real Estate Development Teams</title>
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ms-blue: #0078d4;
+  --ms-blue-dark: #005a9e;
+  --ms-blue-light: #deecf9;
+  --ms-purple: #5c2d91;
+  --ms-purple-light: #e8d5f5;
+  --ms-teal: #00b4d8;
+  --ms-gradient: linear-gradient(135deg, #0078d4 0%, #5c2d91 100%);
+  --ms-gradient-soft: linear-gradient(135deg, #deecf9 0%, #e8d5f5 100%);
+  --bg: #ffffff;
+  --bg-soft: #f5f5f5;
+  --bg-blue: #f0f6ff;
+  --bg-purple: #f5f0ff;
+  --border: #e0e0e0;
+  --border-blue: #c8dff6;
+  --text-primary: #1a1a1a;
+  --text-secondary: #505050;
+  --text-muted: #8a8a8a;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 60px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 6%;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 30px; height: 30px;
+  background: var(--ms-gradient);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 14px;
+}
+
+.nav-logo-text {
+  font-size: 16px; font-weight: 600;
+  color: var(--text-primary);
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px; color: var(--text-secondary);
+  text-decoration: none; font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ms-blue); }
+
+.nav-cta {
+  background: var(--ms-blue) !important;
+  color: white !important;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 500 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--ms-blue-dark) !important; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding-top: 60px;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 6% 80px 8%;
+  background: white;
+}
+
+.hero-right {
+  background: var(--ms-gradient-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(0,120,212,0.15) 0%, transparent 65%);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ms-blue-light);
+  color: var(--ms-blue);
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+  width: fit-content;
+  animation: fadeUp 0.5s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--ms-blue);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.4; transform:scale(1.4); }
+}
+
+.hero-h1 {
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+
+.hero-h1 .blue { color: var(--ms-blue); }
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 500px;
+  margin-bottom: 36px;
+  font-weight: 400;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.hero-sub strong { color: var(--text-primary); font-weight: 600; }
+
+.hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ms-blue);
+  color: white;
+  text-decoration: none;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 15px; font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--ms-blue-dark); transform: translateY(-1px); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  color: var(--ms-blue);
+  text-decoration: none;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 15px; font-weight: 500;
+  border: 1.5px solid var(--ms-blue);
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--ms-blue-light); }
+
+/* HERO WINDOW */
+.hero-window {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hw-header {
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.hw-dot { width: 10px; height: 10px; border-radius: 50%; }
+.hw-title { font-size: 12px; color: var(--text-muted); margin-left: 4px; font-weight: 500; }
+
+.hw-copilot-bar {
+  background: linear-gradient(90deg, #0078d4, #5c2d91);
+  height: 3px;
+}
+
+.hw-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+.hw-msg { display: flex; gap: 10px; align-items: flex-start; }
+
+.hw-avatar {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+.hw-avatar.u { background: var(--ms-blue-light); border: 1px solid var(--border-blue); }
+.hw-avatar.a { background: var(--ms-gradient); color: white; font-size: 12px; font-weight: 700; }
+
+.hw-bubble {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 85%;
+}
+
+.hw-bubble.ai {
+  background: #f0f6ff;
+  border-color: var(--border-blue);
+  color: var(--text-primary);
+}
+
+.hw-tag {
+  display: inline-block;
+  background: var(--ms-blue-light);
+  color: var(--ms-blue);
+  border-radius: 4px;
+  padding: 1px 7px;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.hw-highlight {
+  background: #e8f4e8; color: #1a7a1a;
+  border-radius: 3px; padding: 1px 5px;
+  font-size: 12px; font-weight: 600;
+}
+
+.hw-warn { color: #c8520a; font-weight: 500; }
+
+.hw-typing {
+  display: flex; gap: 4px; align-items: center;
+  padding: 10px 14px;
+  background: #f0f6ff; border: 1px solid var(--border-blue);
+  border-radius: 10px; width: fit-content;
+}
+.hw-dot-t {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ms-blue);
+  animation: typeBounce 1.2s ease infinite;
+}
+.hw-dot-t:nth-child(2) { animation-delay: 0.2s; }
+.hw-dot-t:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typeBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+/* ─── STAT BANNER ─── */
+.stat-banner {
+  background: var(--ms-gradient);
+  padding: 52px 8%;
+}
+.stat-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 40px;
+  text-align: center;
+}
+.stat-number {
+  font-size: 52px; font-weight: 700; color: white; line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+/* ─── SECTION BASE ─── */
+.section {
+  padding: 90px 8%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--ms-blue); margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: var(--text-primary); margin-bottom: 16px;
+}
+
+.section-body {
+  font-size: 17px; color: var(--text-secondary);
+  line-height: 1.7; max-width: 580px;
+}
+
+/* ─── WHAT IS A COPILOT AGENT ─── */
+.edu-section {
+  background: var(--bg-soft);
+  padding: 90px 8%;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-inner { max-width: 1200px; margin: 0 auto; }
+
+.edu-header { text-align: center; margin-bottom: 60px; }
+.edu-header .section-body { margin: 0 auto; text-align: center; }
+
+/* ANALOGY */
+.analogy-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px; align-items: center;
+  margin-bottom: 80px;
+}
+
+.analogy-card {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  transition: box-shadow 0.3s;
+}
+.analogy-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+.analogy-card.featured {
+  border-color: var(--ms-blue);
+  box-shadow: 0 4px 24px rgba(0,120,212,0.12);
+}
+
+.analogy-card-label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text-muted); margin-bottom: 14px;
+}
+
+.analogy-card.featured .analogy-card-label { color: var(--ms-blue); }
+
+.analogy-emoji { font-size: 32px; margin-bottom: 12px; line-height: 1; }
+
+.analogy-card-title {
+  font-size: 20px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 12px; line-height: 1.3;
+}
+
+.analogy-card-body {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 20px;
+}
+
+.score-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.score-pip { width: 8px; height: 8px; border-radius: 2px; background: var(--border); }
+.score-pip.on { background: var(--ms-blue); }
+.analogy-card.featured .score-pip.on { background: #107c10; }
+.score-text { font-size: 12px; color: var(--text-muted); margin-left: 4px; font-weight: 500; }
+.analogy-card.featured .score-text { color: #107c10; font-weight: 600; }
+
+.analogy-vs {
+  font-size: 18px; font-weight: 700;
+  color: var(--text-muted); text-align: center; padding: 0 4px;
+}
+
+/* CAPABILITIES */
+.caps-header { text-align: center; margin-bottom: 40px; }
+
+.caps-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 16px; margin-bottom: 72px;
+}
+
+.cap-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.cap-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+  border-color: var(--border-blue);
+}
+
+.cap-num {
+  font-size: 11px; font-weight: 700; color: var(--ms-blue);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+}
+
+.cap-icon { font-size: 26px; margin-bottom: 12px; line-height: 1; }
+
+.cap-title {
+  font-size: 17px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 10px;
+}
+
+.cap-body {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.65; margin-bottom: 16px;
+}
+
+.cap-re {
+  background: var(--bg-purple);
+  border-left: 3px solid var(--ms-purple);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+.cap-re-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ms-purple); margin-bottom: 5px; display: block;
+}
+
+/* TYPES */
+.types-section { margin-bottom: 56px; }
+.types-header { margin-bottom: 32px; }
+
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+}
+
+.type-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  transition: box-shadow 0.3s;
+}
+.type-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+.type-card.featured {
+  background: var(--bg-blue);
+  border-color: var(--ms-blue);
+}
+
+.type-emoji { font-size: 24px; margin-bottom: 12px; line-height: 1; }
+.type-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.type-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 14px; }
+
+.type-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 3px 10px; border-radius: 4px;
+}
+.type-tag.yellow { background: #fff4ce; color: #7a5c00; }
+.type-tag.green { background: #e8f5e8; color: #107c10; }
+
+/* SECURITY */
+.security-box {
+  background: var(--bg-blue);
+  border: 1.5px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.security-icon { font-size: 28px; flex-shrink: 0; }
+.security-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.security-body { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+/* ─── PAIN POINTS ─── */
+.pain-section {
+  padding: 90px 8%;
+  max-width: 1200px; margin: 0 auto;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px; margin-top: 48px;
+}
+
+.pain-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  position: relative; overflow: hidden;
+}
+
+.pain-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--ms-gradient);
+  opacity: 0; transition: opacity 0.3s;
+}
+.pain-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+.pain-card:hover::after { opacity: 1; }
+
+.pain-icon {
+  width: 40px; height: 40px;
+  background: var(--ms-blue-light);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 14px;
+}
+
+.pain-card h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; line-height: 1.35; }
+.pain-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+
+/* ─── AGENT LIBRARY ─── */
+.agents-section {
+  background: var(--bg-soft);
+  padding: 90px 8%;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.agents-inner { max-width: 1200px; margin: 0 auto; }
+.agents-header { text-align: center; margin-bottom: 48px; }
+.agents-header .section-body { margin: 0 auto; text-align: center; }
+
+.agent-tabs {
+  display: flex; gap: 8px; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 40px;
+}
+
+.agent-tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 20px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: white;
+  color: var(--text-secondary);
+  font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.agent-tab:hover { border-color: var(--ms-blue); color: var(--ms-blue); }
+.agent-tab.active {
+  background: var(--ms-blue); border-color: var(--ms-blue);
+  color: white; box-shadow: 0 4px 14px rgba(0,120,212,0.25);
+}
+
+.agent-panel { display: none; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; }
+.agent-panel.active { display: grid; animation: panelIn 0.3s ease both; }
+@keyframes panelIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.agent-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ms-blue-light); color: var(--ms-blue);
+  border-radius: 6px; padding: 4px 12px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+
+.agent-headline {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700; line-height: 1.2;
+  color: var(--text-primary); margin-bottom: 14px;
+  letter-spacing: -0.3px;
+}
+
+.agent-pitch {
+  font-size: 15px; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 28px;
+}
+
+.agent-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.agent-features li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.55;
+}
+.feat-check {
+  width: 20px; height: 20px;
+  background: #e8f5e8; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 11px; color: #107c10;
+  border: 1px solid #c3e6c3; margin-top: 1px;
+}
+
+.love-box {
+  background: var(--bg-purple);
+  border: 1px solid #d4b8f0;
+  border-radius: 10px; padding: 16px 18px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.love-icon { font-size: 18px; flex-shrink: 0; }
+.love-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--ms-purple); margin-bottom: 4px; display: block; }
+.love-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* AGENT WINDOW */
+.agent-window {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+.aw-header {
+  background: var(--bg-soft); border-bottom: 1px solid var(--border);
+  padding: 11px 16px; display: flex; align-items: center; gap: 8px;
+}
+.aw-dots { display: flex; gap: 5px; }
+.aw-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.aw-title { font-size: 12px; color: var(--text-muted); margin-left: 4px; font-weight: 500; }
+.aw-stripe { height: 3px; background: var(--ms-gradient); }
+.aw-body { padding: 20px; display: flex; flex-direction: column; gap: 13px; min-height: 360px; }
+
+.aw-msg { display: flex; gap: 10px; align-items: flex-start; }
+.aw-av {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+.aw-av.u { background: var(--ms-blue-light); border: 1px solid var(--border-blue); }
+.aw-av.a { background: var(--ms-gradient); color: white; font-size: 11px; font-weight: 700; }
+
+.aw-b {
+  background: var(--bg-soft); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 13px;
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; max-width: 88%;
+}
+.aw-b.ai { background: #f0f6ff; border-color: var(--border-blue); color: var(--text-primary); }
+.aw-tag {
+  display: inline-block; background: var(--ms-blue-light); color: var(--ms-blue);
+  border-radius: 3px; padding: 1px 7px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+.aw-green { color: #107c10; font-weight: 600; }
+.aw-orange { color: #c8520a; font-weight: 500; }
+.aw-typing {
+  display: flex; gap: 4px; align-items: center;
+  padding: 10px 13px; background: #f0f6ff;
+  border: 1px solid var(--border-blue); border-radius: 10px; width: fit-content;
+}
+.aw-td {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--ms-blue);
+  animation: typeBounce 1.2s ease infinite;
+}
+.aw-td:nth-child(2){animation-delay:0.2s} .aw-td:nth-child(3){animation-delay:0.4s}
+
+/* ─── HALFDAYS METHOD ─── */
+.method-section {
+  padding: 90px 8%;
+  max-width: 1200px; margin: 0 auto;
+}
+
+.method-header { text-align: center; margin-bottom: 64px; }
+.method-header .section-body { margin: 16px auto 0; text-align: center; }
+
+.method-timeline { display: flex; flex-direction: column; }
+
+.method-step {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 28px;
+}
+
+.ms-left {
+  display: flex; flex-direction: column; align-items: center; padding-top: 2px;
+}
+
+.ms-num {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--ms-gradient);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: white; flex-shrink: 0;
+}
+
+.ms-line {
+  width: 2px; flex: 1; min-height: 32px;
+  background: linear-gradient(to bottom, var(--ms-blue), var(--border));
+  margin: 10px 0; opacity: 0.3;
+}
+
+.ms-right { padding-bottom: 48px; }
+
+.ms-step-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--ms-blue); margin-bottom: 6px;
+}
+
+.ms-step-title {
+  font-size: clamp(18px, 2vw, 24px); font-weight: 700;
+  color: var(--text-primary); line-height: 1.25;
+  margin-bottom: 10px; letter-spacing: -0.2px;
+}
+
+.ms-step-body {
+  font-size: 15px; color: var(--text-secondary);
+  line-height: 1.7; max-width: 640px; margin-bottom: 18px;
+}
+
+.ms-example {
+  background: var(--bg-blue);
+  border-left: 3px solid var(--ms-blue);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px; max-width: 580px;
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.65; font-style: italic;
+}
+.ms-example-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--ms-blue); margin-bottom: 5px;
+  display: block; font-style: normal;
+}
+
+.output-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.output-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 100px;
+  border: 1.5px solid var(--border); background: white;
+  font-size: 13px; color: var(--text-secondary);
+  transition: all 0.2s;
+}
+.output-chip.active {
+  background: var(--ms-blue-light);
+  border-color: var(--ms-blue); color: var(--ms-blue);
+  font-weight: 500;
+}
+
+.code-box {
+  background: #f8f9fa; border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; max-width: 580px;
+}
+.code-box-header {
+  background: var(--bg-soft); border-bottom: 1px solid var(--border);
+  padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+}
+.code-box-dots { display: flex; gap: 5px; }
+.code-box-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.code-box-title { font-size: 12px; color: var(--text-muted); margin-left: 4px; }
+.code-body {
+  padding: 18px 20px; font-size: 13px; color: var(--text-secondary);
+  line-height: 1.9; font-family: 'Courier New', monospace;
+}
+.code-comment { color: var(--text-muted); }
+.code-key { color: var(--ms-blue); font-weight: 600; }
+.code-orange { color: #c8520a; }
+
+.result-pill {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: #e8f5e8; border: 1px solid #c3e6c3;
+  border-radius: 100px; padding: 10px 22px; font-size: 14px;
+}
+.result-before { color: var(--text-muted); text-decoration: line-through; }
+.result-arrow { color: #107c10; font-weight: 700; font-size: 16px; }
+.result-after { color: #107c10; font-weight: 700; }
+
+/* ─── DELIVERY MODES ─── */
+.delivery-section {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 90px 8%;
+}
+.delivery-inner { max-width: 1200px; margin: 0 auto; }
+.delivery-header { text-align: center; margin-bottom: 52px; }
+
+.delivery-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.delivery-card {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.delivery-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); border-color: var(--ms-blue); }
+
+.delivery-icon { font-size: 36px; margin-bottom: 14px; line-height: 1; }
+.delivery-mode-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--ms-blue); margin-bottom: 8px;
+}
+.delivery-title {
+  font-size: clamp(20px, 2.2vw, 26px); font-weight: 700;
+  color: var(--text-primary); line-height: 1.25; margin-bottom: 12px;
+}
+.delivery-body {
+  font-size: 15px; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 28px;
+}
+.delivery-features {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 24px; padding-top: 24px; border-top: 1px solid var(--border);
+  flex: 1;
+}
+.delivery-features li {
+  font-size: 14px; color: var(--text-secondary);
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+}
+.delivery-features li::before { content: '✓'; color: #107c10; font-weight: 700; flex-shrink: 0; }
+.delivery-ideal {
+  font-size: 13px; color: var(--text-muted);
+  font-style: italic; padding: 12px 0;
+  border-top: 1px solid var(--border); margin-bottom: 20px;
+}
+
+/* ─── PRICING ─── */
+.pricing-section { padding: 90px 8%; max-width: 1200px; margin: 0 auto; }
+.pricing-header { text-align: center; margin-bottom: 52px; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr 1fr;
+  gap: 16px; align-items: start;
+}
+
+.pricing-card {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  position: relative;
+  transition: box-shadow 0.3s;
+}
+.pricing-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+
+.pricing-card.featured {
+  border-color: var(--ms-blue);
+  box-shadow: 0 4px 24px rgba(0,120,212,0.12);
+}
+
+.pricing-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--ms-gradient); color: white;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 4px 16px; border-radius: 100px;
+  white-space: nowrap;
+}
+
+.pricing-plan {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 10px;
+}
+
+.pricing-price {
+  font-size: 52px; font-weight: 700;
+  color: var(--text-primary); line-height: 1;
+  margin-bottom: 4px;
+}
+.pricing-price sup { font-size: 24px; font-weight: 400; vertical-align: top; margin-top: 8px; }
+
+.pricing-period { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+.pricing-desc {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.65; margin-bottom: 20px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border);
+}
+
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.pricing-features li {
+  font-size: 14px; color: var(--text-secondary);
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+}
+.pricing-features li::before { content: '✓'; color: #107c10; font-weight: 700; flex-shrink: 0; }
+
+.pricing-btn {
+  display: block; text-align: center; text-decoration: none;
+  padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  transition: all 0.2s;
+}
+.pricing-btn.primary { background: var(--ms-blue); color: white; }
+.pricing-btn.primary:hover { background: var(--ms-blue-dark); }
+.pricing-btn.outline { border: 1.5px solid var(--ms-blue); color: var(--ms-blue); }
+.pricing-btn.outline:hover { background: var(--ms-blue-light); }
+
+/* ─── TESTIMONIAL ─── */
+.testimonial-section {
+  background: var(--ms-gradient);
+  padding: 80px 8%;
+}
+.testimonial-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+
+.t-quote {
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 500; line-height: 1.5;
+  color: white; margin-bottom: 32px;
+  position: relative;
+}
+.t-quote::before {
+  content: '"';
+  position: absolute; left: -10px; top: -30px;
+  font-size: 100px; line-height: 1;
+  color: rgba(255,255,255,0.15); font-family: Georgia, serif;
+}
+
+.t-author-name { font-size: 15px; font-weight: 700; color: white; }
+.t-author-role { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+
+/* ─── CTA ─── */
+.cta-section {
+  padding: 100px 8%; text-align: center;
+  background: var(--bg-blue);
+  border-top: 1px solid var(--border-blue);
+}
+.cta-inner { max-width: 640px; margin: 0 auto; }
+.cta-title {
+  font-size: clamp(30px, 4vw, 52px); font-weight: 700;
+  line-height: 1.15; letter-spacing: -0.5px;
+  color: var(--text-primary); margin-bottom: 18px;
+}
+.cta-body { font-size: 17px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 36px; }
+.cta-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: white; border-top: 1px solid var(--border);
+  padding: 40px 8%;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-logo { font-size: 16px; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+.footer-note { font-size: 13px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--ms-blue); }
+
+/* ─── SCROLL DIVIDERS ─── */
+.full-divider { width: 100%; height: 1px; background: var(--border); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.fade-up { opacity:0; transform:translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity:1; transform:translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 80px 6%; }
+  .pain-grid, .caps-grid, .types-grid { grid-template-columns: 1fr; }
+  .analogy-grid { grid-template-columns: 1fr; }
+  .analogy-vs { display: none; }
+  .pricing-grid, .delivery-grid { grid-template-columns: 1fr; }
+  .agent-panel.active { grid-template-columns: 1fr; gap: 32px; }
+  .stat-inner { grid-template-columns: 1fr; }
+  .method-step { grid-template-columns: 52px 1fr; }
+  nav .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">H</div>
+    <span class="nav-logo-text">Halfdays</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what-is">What Are Agents?</a></li>
+    <li><a href="#agents">Agent Library</a></li>
+    <li><a href="#how">The Method</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#book" class="nav-cta">Book a Half Day →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Microsoft Copilot Agent Specialists</div>
+    <h1 class="hero-h1">Your team is paying for Copilot and using it like a <span class="blue">search bar.</span></h1>
+    <p class="hero-sub">
+      Most real estate development teams have Microsoft 365 Copilot deployed.
+      <strong>Almost none have Agents.</strong> That's $30/seat/month going to waste while your team manually compiles deal pipelines, chases project status, and reviews leases line by line.
+    </p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-primary">Book a Free Discovery Call →</a>
+      <a href="#what-is" class="btn-secondary">What Are Agents?</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-window">
+      <div class="hw-header">
+        <div style="display:flex;gap:5px">
+          <div class="hw-dot" style="background:#ff5f57"></div>
+          <div class="hw-dot" style="background:#ffbd2e"></div>
+          <div class="hw-dot" style="background:#28c840"></div>
+        </div>
+        <span class="hw-title">Deal Pipeline Agent — Microsoft Copilot</span>
+      </div>
+      <div class="hw-copilot-bar"></div>
+      <div class="hw-body">
+        <div class="hw-msg">
+          <div class="hw-avatar u">👤</div>
+          <div class="hw-bubble">What's the status of Meridian Mixed-Use and are there blockers?</div>
+        </div>
+        <div class="hw-msg">
+          <div class="hw-avatar a">⚡</div>
+          <div class="hw-bubble ai">
+            <div class="hw-tag">Deal Pipeline Agent</div>
+            <strong>Meridian Mixed-Use — Pre-LOI / Active</strong><br><br>
+            Seller countered at $42.5M. Your last target: $40M.<br><br>
+            <span class="hw-warn">⚠ Blocker:</span> Phase I not ordered. Clock starts at LOI signing.<br><br>
+            Next: Legal review call Nov 18, 2PM CT.<br><br>
+            Want me to draft a counter at $41M?
+          </div>
+        </div>
+        <div class="hw-msg">
+          <div class="hw-avatar u">👤</div>
+          <div class="hw-bubble">Yes — draft the email.</div>
+        </div>
+        <div class="hw-msg">
+          <div class="hw-avatar a">⚡</div>
+          <div class="hw-typing">
+            <div class="hw-dot-t"></div><div class="hw-dot-t"></div><div class="hw-dot-t"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT BANNER -->
+<div class="stat-banner">
+  <div class="stat-inner">
+    <div class="stat-item fade-up">
+      <div class="stat-number">$30</div>
+      <div class="stat-label">per seat / month already spent on Copilot.<br>Without Agents, it's nearly wasted.</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-number">4 hrs</div>
+      <div class="stat-label">average time saved per person / week<br>once a custom Copilot Agent is deployed.</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-number">½ day</div>
+      <div class="stat-label">is all it takes to design, build, and<br>deploy your first Agent with Halfdays.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS A COPILOT AGENT -->
+<section class="edu-section" id="what-is">
+  <div class="edu-inner">
+    <div class="edu-header fade-up">
+      <div class="section-label">Understanding the Technology</div>
+      <h2 class="section-title">Copilot is the assistant.<br>Agents are the workforce.</h2>
+      <p class="section-body">Most people use Microsoft Copilot like a smarter search bar. Agents are a completely different category — they don't just answer questions, they do the work. Here's the plain-English version.</p>
+    </div>
+
+    <div class="analogy-grid fade-up">
+      <div class="analogy-card">
+        <div class="analogy-card-label">Copilot Without Agents</div>
+        <div class="analogy-emoji">🔎</div>
+        <div class="analogy-card-title">A really smart search bar</div>
+        <p class="analogy-card-body">Ask it a question, get an answer. Helpful — but you're still doing the work. It doesn't connect to your data, remember your workflow, or take action on your behalf.</p>
+        <div class="score-row">
+          <div class="score-pip on"></div><div class="score-pip on"></div>
+          <div class="score-pip"></div><div class="score-pip"></div><div class="score-pip"></div>
+          <span class="score-text">2 of 5 potential unlocked</span>
+        </div>
+      </div>
+      <div class="analogy-vs">VS</div>
+      <div class="analogy-card featured">
+        <div class="analogy-card-label">Copilot + Custom Agents</div>
+        <div class="analogy-emoji">⚡</div>
+        <div class="analogy-card-title">A specialist with one job — done perfectly</div>
+        <p class="analogy-card-body">An Agent is trained on your data, configured around your exact workflow, and programmed to deliver answers the way you want them — connected to SharePoint, Teams, email, and your systems.</p>
+        <div class="score-row">
+          <div class="score-pip on"></div><div class="score-pip on"></div>
+          <div class="score-pip on"></div><div class="score-pip on"></div><div class="score-pip on"></div>
+          <span class="score-text">Full potential unlocked</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="caps-header fade-up">
+      <div class="section-label" style="text-align:center">What Agents Actually Do</div>
+      <h3 class="section-title" style="text-align:center; margin-bottom:0">Four capabilities that change how your team works</h3>
+    </div>
+
+    <div class="caps-grid fade-up">
+      <div class="cap-card">
+        <div class="cap-num">Capability 01</div>
+        <div class="cap-icon">🔁</div>
+        <div class="cap-title">Task Automation</div>
+        <p class="cap-body">Agents handle the same repetitive work your team does every week — pulling deal data, formatting reports, compiling status updates — automatically, without being asked.</p>
+        <div class="cap-re">
+          <span class="cap-re-label">Real Estate Example</span>
+          Every Monday, your Deal Pipeline Agent compiles deal status from emails and Teams and delivers a formatted report before your team arrives.
+        </div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-num">Capability 02</div>
+        <div class="cap-icon">📊</div>
+        <div class="cap-title">Advanced Data Analysis</div>
+        <p class="cap-body">Feed an Agent 12 feasibility studies and it extracts the same three data points from each one — consistently, accurately, in seconds. No more manual scanning.</p>
+        <div class="cap-re">
+          <span class="cap-re-label">Real Estate Example</span>
+          Upload any deal document. Your Due Diligence Agent instantly surfaces cap rate, zoning, and environmental status — as a comparison table.
+        </div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-num">Capability 03</div>
+        <div class="cap-icon">🧠</div>
+        <div class="cap-title">Decision Support</div>
+        <p class="cap-body">Agents don't just retrieve data — they interpret it. They can flag deal-breakers, surface blockers, and give a one-sentence go/no-go based on your criteria.</p>
+        <div class="cap-re">
+          <span class="cap-re-label">Real Estate Example</span>
+          "Riverside Commons: Proceed. Oak Street: Flag — Phase II required before LOI." Two decisions. Zero manual research.
+        </div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-num">Capability 04</div>
+        <div class="cap-icon">🔌</div>
+        <div class="cap-title">Connected to Your Data</div>
+        <p class="cap-body">Agents connect to SharePoint, Outlook, Teams, and 1,400+ connectors — including Procore, Yardi, and more. They work on your real data, not generic demos.</p>
+        <div class="cap-re">
+          <span class="cap-re-label">Real Estate Example</span>
+          Your Project Status Agent reads live data from SharePoint and Teams — and answers "What's the status of Meridian?" instantly.
+        </div>
+      </div>
+    </div>
+
+    <div class="types-section fade-up">
+      <div class="types-header">
+        <div class="section-label">Three Types of Agents</div>
+        <h3 class="section-title" style="margin-bottom:0">Know what you're working with before you build</h3>
+      </div>
+      <div class="types-grid">
+        <div class="type-card">
+          <div class="type-emoji">📦</div>
+          <div class="type-title">Pre-Built Agents</div>
+          <p class="type-body">Ready-to-use Agents provided by Microsoft for common tasks. Good starting points — but not configured for your firm's specific workflows. Templates, not finished tools.</p>
+          <span class="type-tag yellow">Good starting point</span>
+        </div>
+        <div class="type-card featured">
+          <div class="type-emoji">⚙️</div>
+          <div class="type-title">Custom Agents</div>
+          <p class="type-body">Built specifically for your firm's workflows, connected to your data sources, and configured to deliver outputs exactly how your team needs them. This is what Halfdays builds.</p>
+          <span class="type-tag green">This is what Halfdays builds</span>
+        </div>
+        <div class="type-card">
+          <div class="type-emoji">💬</div>
+          <div class="type-title">Conversational Agents</div>
+          <p class="type-body">Agents focused on natural language Q&A — answering questions, guiding users, and explaining policies. Great for brand style guides, onboarding, and knowledge bases.</p>
+          <span class="type-tag yellow">Great for knowledge & onboarding</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="security-box fade-up">
+      <div class="security-icon">🔒</div>
+      <div>
+        <div class="security-title">Enterprise-grade. Lives entirely inside your Microsoft 365 environment.</div>
+        <p class="security-body">Agents built with Halfdays are managed through the Microsoft 365 Admin Center. No third-party AI tools, no data leaving your environment, no new software to procure. If your firm already has Microsoft 365, you have the foundation. We just activate it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section class="pain-section" id="pain">
+  <div class="fade-up">
+    <div class="section-label">The Real Problem</div>
+    <h2 class="section-title">The workflows killing your team's productivity</h2>
+    <p class="section-body">We've worked with real estate development firms across the country. The same painful, manual processes show up every time — and Copilot Agents solve them in hours.</p>
+  </div>
+  <div class="pain-grid">
+    <div class="pain-card fade-up">
+      <div class="pain-icon">📋</div>
+      <h3>Deal Pipeline Reporting Takes Half a Day, Every Week</h3>
+      <p>Someone manually compiles deal status from emails, Teams, and spreadsheets every Monday. An Agent does it automatically — before your team arrives.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-icon">📄</div>
+      <h3>Lease Review Still Means Line-by-Line Reading</h3>
+      <p>Your team reads the same 47-page template to flag the same 12 risk clauses every time. An Agent does it in 90 seconds. Your team takes 4 hours.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-icon">🔄</div>
+      <h3>Project Status Lives in 6 Different Places</h3>
+      <p>Teams, SharePoint, email, Procore, Excel — nobody knows the real status without pinging three people. A status Agent surfaces it instantly.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-icon">📊</div>
+      <h3>Investor Updates Are a 3-Hour Copy-Paste Job</h3>
+      <p>Your team pulls data from six sources to write a quarterly update. A Copilot Agent drafts the entire report from your SharePoint data — formatted, ready to send.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-icon">📁</div>
+      <h3>Due Diligence Docs Take Days to Review</h3>
+      <p>200-page feasibility studies. Phase I reports. Appraisals. An Agent reads all of them and surfaces the 3 deal points that matter — in seconds.</p>
+    </div>
+    <div class="pain-card fade-up">
+      <div class="pain-icon">🔍</div>
+      <h3>"Can You Pull That Document?" — Every Single Day</h3>
+      <p>Teams waste 45 minutes a day searching for files and past decisions. A document Agent finds it in seconds with plain English — no folder navigation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AGENT LIBRARY -->
+<section class="agents-section" id="agents">
+  <div class="agents-inner">
+    <div class="agents-header fade-up">
+      <div class="section-label">Agent Library</div>
+      <h2 class="section-title">Built for the workflows that matter</h2>
+      <p class="section-body">Every Agent below was designed around a specific, painful problem real estate development teams face every week. Pick the one that makes you say "we need that."</p>
+    </div>
+
+    <div class="agent-tabs fade-up">
+      <button class="agent-tab active" onclick="showAgent('dd',this)">🔍 Due Diligence Agent</button>
+      <button class="agent-tab" onclick="showAgent('market',this)">📍 Market Analysis Agent</button>
+      <button class="agent-tab" onclick="showAgent('brand',this)">🎨 Property Brand Agent</button>
+      <button class="agent-tab" onclick="showAgent('deal',this)">💼 Deal Pipeline Agent</button>
+    </div>
+
+    <div id="panel-dd" class="agent-panel active">
+      <div>
+        <div class="agent-badge">⚡ Copilot Agent</div>
+        <h3 class="agent-headline">Upload a 200-page feasibility study. Get answers in seconds, not hours.</h3>
+        <p class="agent-pitch">Your team spends days reading dense documents to find 12 critical data points. The Due Diligence Agent reads everything, answers in plain English, and flags what actually matters.</p>
+        <ul class="agent-features">
+          <li><span class="feat-check">✓</span> Ask in plain English — "What are the main zoning restrictions?" or "Summarize the environmental risks"</li>
+          <li><span class="feat-check">✓</span> Instantly surface key risks, deal-breakers, and opportunities buried in any document</li>
+          <li><span class="feat-check">✓</span> Compare multiple properties side-by-side — same framework, every time</li>
+          <li><span class="feat-check">✓</span> Works with feasibility studies, appraisals, Phase I reports, and lease abstracts</li>
+        </ul>
+        <div class="love-box">
+          <div class="love-icon">💙</div>
+          <div><span class="love-label">Why developers love it</span><span class="love-text">Spend time on strategy, not hunting through documents. Your acquisitions team gets to the decision faster — with more confidence.</span></div>
+        </div>
+      </div>
+      <div class="agent-window">
+        <div class="aw-header">
+          <div class="aw-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
+          <span class="aw-title">Due Diligence Agent — Microsoft Copilot</span>
+        </div>
+        <div class="aw-stripe"></div>
+        <div class="aw-body">
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">What are the main zoning restrictions on Riverside Commons?</div></div>
+          <div class="aw-msg">
+            <div class="aw-av a">⚡</div>
+            <div class="aw-b ai">
+              <div class="aw-tag">Due Diligence Agent</div>
+              <strong>Riverside Commons — Zoning Summary</strong><br><br>
+              • Zoned <span class="aw-green">MX-3 Mixed-Use</span> — residential above grade 1 commercial required<br>
+              • Max height: <strong>85 ft / 7 stories</strong> by-right. PUD overlay up to 12 stories<br>
+              • Min 15% affordable if using density bonus<br>
+              • <span class="aw-orange">⚠ Setback:</span> North boundary 20ft — reduces footprint ~8%<br><br>
+              Compare these against Oak Street?
+            </div>
+          </div>
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">Yes — flag which site has better development potential.</div></div>
+          <div class="aw-msg"><div class="aw-av a">⚡</div><div class="aw-typing"><div class="aw-td"></div><div class="aw-td"></div><div class="aw-td"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-market" class="agent-panel">
+      <div>
+        <div class="agent-badge">⚡ Copilot Agent</div>
+        <h3 class="agent-headline">Answer the multi-million dollar question: Where should we build next?</h3>
+        <p class="agent-pitch">Most developers look at the same markets at the same time. The Market Analysis Agent helps you find opportunities 12–18 months before they hit everyone else's radar.</p>
+        <ul class="agent-features">
+          <li><span class="feat-check">✓</span> Deep research on emerging markets matching your investment criteria and return targets</li>
+          <li><span class="feat-check">✓</span> Track corporate relocations, infrastructure development, and demographic shifts</li>
+          <li><span class="feat-check">✓</span> Surface signals competitors miss — permitting trends, rent-to-income ratios, job growth</li>
+          <li><span class="feat-check">✓</span> Generate market briefs and investment memos ready for your committee</li>
+        </ul>
+        <div class="love-box">
+          <div class="love-icon">💙</div>
+          <div><span class="love-label">Why developers love it</span><span class="love-text">Find the next Frisco before everyone else does. Be the firm with proprietary market insight — not the one chasing deals after the opportunity's gone.</span></div>
+        </div>
+      </div>
+      <div class="agent-window">
+        <div class="aw-header">
+          <div class="aw-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
+          <span class="aw-title">Market Analysis Agent — Microsoft Copilot</span>
+        </div>
+        <div class="aw-stripe"></div>
+        <div class="aw-body">
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">Find Sun Belt markets showing early-stage multifamily demand. We target 200–500 units, 6% yield min.</div></div>
+          <div class="aw-msg">
+            <div class="aw-av a">⚡</div>
+            <div class="aw-b ai">
+              <div class="aw-tag">Market Analysis Agent</div>
+              <strong>3 Emerging Markets — High Confidence</strong><br><br>
+              <span class="aw-green">1. Huntsville, AL</span> — Boeing + Lockheed expansion, 4,200 new jobs. Vacancy 4.2%. Undersupplied ~1,800 units through 2026.<br><br>
+              <span class="aw-green">2. Greenville-Spartanburg, SC</span> — BMW expansion confirmed. Rent growth 11.4% YoY. Only 2 active competitors above 200 units.<br><br>
+              <span class="aw-orange">⚠ Watch: Tucson, AZ</span> — strong signals but zoning reform bill pending. Monitoring.<br><br>
+              Full investment brief on Huntsville?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-brand" class="agent-panel">
+      <div>
+        <div class="agent-badge">⚡ Copilot Agent</div>
+        <h3 class="agent-headline">Your brand book, alive. Every community. Every touchpoint. Always on-brand.</h3>
+        <p class="agent-pitch">Your brand guidelines are a PDF nobody reads. The Property Brand Agent turns every style guide into a living team member — generating on-brand content the moment it's needed.</p>
+        <ul class="agent-features">
+          <li><span class="feat-check">✓</span> Trained on each property's full Brand Style Guide — voice, tone, fonts, messaging pillars, resident persona</li>
+          <li><span class="feat-check">✓</span> Generate social posts, emails, leasing scripts, brochures, and web copy in seconds</li>
+          <li><span class="feat-check">✓</span> Enforce tone consistency across leasing agents, vendors, regional managers, and social teams</li>
+          <li><span class="feat-check">✓</span> Acts as a living brand manual — explains positioning hierarchy on demand</li>
+        </ul>
+        <div class="love-box">
+          <div class="love-icon">💙</div>
+          <div><span class="love-label">Why marketing teams love it</span><span class="love-text">Turn a static brand book into a real-time brand assistant that never forgets the guidelines and never goes off-brand — no matter who's writing.</span></div>
+        </div>
+      </div>
+      <div class="agent-window">
+        <div class="aw-header">
+          <div class="aw-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
+          <span class="aw-title">Property Brand Agent — Microsoft Copilot</span>
+        </div>
+        <div class="aw-stripe"></div>
+        <div class="aw-body">
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">Write an Instagram caption for Lumen at Midtown's pool opening. Aspirational but not pretentious.</div></div>
+          <div class="aw-msg">
+            <div class="aw-av a">⚡</div>
+            <div class="aw-b ai">
+              <div class="aw-tag">Brand Agent · Lumen at Midtown</div>
+              <strong>Option A — Community:</strong><br>
+              <em>"The pool's open. The plans can wait. ☀️ Summer at Lumen starts now."</em><br><br>
+              <strong>Option B — Aspirational:</strong><br>
+              <em>"This is what we meant by home. Pool season is officially open at Lumen."</em><br><br>
+              <span style="color:var(--text-muted);font-size:12px">✓ Both align with Lumen brand voice: warm, modern, community-first. Avoiding superlatives per brand guidelines p.12.</span>
+            </div>
+          </div>
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">Use Option B and write a matching email subject line for the resident newsletter.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-deal" class="agent-panel">
+      <div>
+        <div class="agent-badge">⚡ Copilot Agent</div>
+        <h3 class="agent-headline">Your Monday morning pipeline report. Written itself. Before you arrived.</h3>
+        <p class="agent-pitch">Someone on your team spends 3–4 hours every Monday compiling deal status. The Deal Pipeline Agent does it automatically — and answers follow-up questions live.</p>
+        <ul class="agent-features">
+          <li><span class="feat-check">✓</span> Pulls deal status from Teams, emails, and SharePoint automatically</li>
+          <li><span class="feat-check">✓</span> Surfaces blockers, next actions, and stalled deals without anyone chasing updates</li>
+          <li><span class="feat-check">✓</span> Drafts follow-up emails and counter-offers in your firm's voice instantly</li>
+          <li><span class="feat-check">✓</span> Executive pipeline summaries on demand — no analyst required</li>
+        </ul>
+        <div class="love-box">
+          <div class="love-icon">💙</div>
+          <div><span class="love-label">Why acquisitions teams love it</span><span class="love-text">No more Monday morning compilation. No more "what's the status on X?" interruptions. Your pipeline is always current, always one question away.</span></div>
+        </div>
+      </div>
+      <div class="agent-window">
+        <div class="aw-header">
+          <div class="aw-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
+          <span class="aw-title">Deal Pipeline Agent — Microsoft Copilot</span>
+        </div>
+        <div class="aw-stripe"></div>
+        <div class="aw-body">
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">What's the status of Meridian Mixed-Use and are there blockers?</div></div>
+          <div class="aw-msg">
+            <div class="aw-av a">⚡</div>
+            <div class="aw-b ai">
+              <div class="aw-tag">Deal Pipeline Agent</div>
+              <strong>Meridian Mixed-Use — Pre-LOI / Active</strong><br><br>
+              Seller countered $42.5M. Your target: $40M.<br><br>
+              <span class="aw-orange">⚠ Blocker:</span> Phase I not ordered. Clock starts at LOI signing.<br><br>
+              Next: Legal call Nov 18, 2PM CT.<br><br>
+              Draft counter at $41M + confirm call?
+            </div>
+          </div>
+          <div class="aw-msg"><div class="aw-av u">👤</div><div class="aw-b">Yes — draft the email.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HALFDAYS METHOD -->
+<section class="method-section" id="how">
+  <div class="method-header fade-up">
+    <div class="section-label">The Halfdays Method</div>
+    <h2 class="section-title">Five steps. One half day. A working Agent.</h2>
+    <p class="section-body">We don't start with technology. We start with a conversation with the person doing the work — and build exactly what they need, nothing more.</p>
+  </div>
+
+  <div class="method-timeline">
+    <div class="method-step fade-up">
+      <div class="ms-left"><div class="ms-num">01</div><div class="ms-line"></div></div>
+      <div class="ms-right">
+        <div class="ms-step-label">Listen</div>
+        <h3 class="ms-step-title">Find the one employee with the one painful task</h3>
+        <p class="ms-step-body">We sit with the person actually doing the work — not the manager above them. They walk us through a task that eats hours every week. We listen and ask one question: "What would the perfect answer look like?"</p>
+        <div class="ms-example">
+          <span class="ms-example-label">Real Example</span>
+          "I intake 8–12 deal documents every week and manually scan each one to pull out the cap rate, zoning classification, and environmental status. It takes me half a day every time."
+        </div>
+      </div>
+    </div>
+
+    <div class="method-step fade-up">
+      <div class="ms-left"><div class="ms-num">02</div><div class="ms-line"></div></div>
+      <div class="ms-right">
+        <div class="ms-step-label">Understand the Output</div>
+        <h3 class="ms-step-title">How do you want the answer delivered?</h3>
+        <p class="ms-step-body">This is the question most AI tools skip — and it's the one that makes the difference between something your team actually uses vs. something they ignore. Table? Excel file? Formatted doc? Draft email to a partner? We design around your answer.</p>
+        <div class="output-chips">
+          <div class="output-chip active">📊 Comparison Table</div>
+          <div class="output-chip">📄 Summary Document</div>
+          <div class="output-chip">📧 Partner Email Draft</div>
+          <div class="output-chip">📁 Excel Export</div>
+          <div class="output-chip">💬 Quick Bullet Summary</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="method-step fade-up">
+      <div class="ms-left"><div class="ms-num">03</div><div class="ms-line"></div></div>
+      <div class="ms-right">
+        <div class="ms-step-label">Build</div>
+        <h3 class="ms-step-title">Configure the Agent to do exactly that — and nothing else</h3>
+        <p class="ms-step-body">No bloated features. No confusing menus. We program a Microsoft Copilot Agent with one job: pull those data points from every document, format them the way you asked, and deliver them instantly. You watch us build it in real time.</p>
+        <div class="code-box">
+          <div class="code-box-header">
+            <div class="code-box-dots"><span style="background:#ff5f57"></span><span style="background:#ffbd2e"></span><span style="background:#28c840"></span></div>
+            <span class="code-box-title">Agent Instructions — Deal Intake Agent</span>
+          </div>
+          <div class="code-body">
+            <span class="code-comment">// When a document is uploaded, always extract:</span><br>
+            <span class="code-key">1.</span> Cap rate or projected yield<br>
+            <span class="code-key">2.</span> Zoning classification + permitted uses<br>
+            <span class="code-key">3.</span> Environmental status (Phase I / II / none)<br><br>
+            <span class="code-comment">// Format the response as:</span><br>
+            <span class="code-key">→</span> A comparison table, one row per property<br>
+            <span class="code-key">→</span> Flag any deal-breaker in <span class="code-orange">orange</span><br>
+            <span class="code-key">→</span> End with a one-sentence go / no-go recommendation
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="method-step fade-up">
+      <div class="ms-left"><div class="ms-num">04</div><div class="ms-line"></div></div>
+      <div class="ms-right">
+        <div class="ms-step-label">Test & Iterate</div>
+        <h3 class="ms-step-title">Run real documents. Refine until it's exactly right.</h3>
+        <p class="ms-step-body">We upload actual documents from your pipeline and run the Agent live. If the output isn't exactly what the employee asked for — wrong format, missing a field, not the right tone — we adjust on the spot. You approve "this is exactly what I needed." Not just "good enough."</p>
+      </div>
+    </div>
+
+    <div class="method-step fade-up">
+      <div class="ms-left"><div class="ms-num">05</div></div>
+      <div class="ms-right">
+        <div class="ms-step-label">Use</div>
+        <h3 class="ms-step-title">It's live. It's yours. Use it tomorrow morning.</h3>
+        <p class="ms-step-body">The Agent is deployed inside your Microsoft 365 environment. Your employee opens Copilot, uploads a document, and gets their answer in seconds. The half-day task becomes a 30-second task — permanently.</p>
+        <div class="result-pill">
+          <span class="result-before">Before: 4 hrs / deal intake</span>
+          <span class="result-arrow">→</span>
+          <span class="result-after">After: 30 seconds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY MODES -->
+<section class="delivery-section" id="delivery">
+  <div class="delivery-inner">
+    <div class="delivery-header fade-up">
+      <div class="section-label">How We Work Together</div>
+      <h2 class="section-title">Two ways to build your first Agent</h2>
+    </div>
+    <div class="delivery-grid fade-up">
+      <div class="delivery-card">
+        <div class="delivery-icon">🤝</div>
+        <div class="delivery-mode-label">Done-With-You</div>
+        <h3 class="delivery-title">We build it together, side by side</h3>
+        <p class="delivery-body">A Halfdays specialist joins your team — on-site or on a call. You bring the workflow. We bring the expertise. In four hours, you have a deployed, working Agent. Your team watches every step.</p>
+        <ul class="delivery-features">
+          <li>Halfdays specialist facilitates the full session</li>
+          <li>Your team is in the room — no black box</li>
+          <li>Agent deployed inside your Microsoft 365 environment</li>
+          <li>Walk away knowing how to prompt and use it</li>
+          <li>30 days of refinement support included</li>
+        </ul>
+        <div class="delivery-ideal">Best for: Teams that want it done right, fast, with zero learning curve.</div>
+        <a href="#book" class="pricing-btn primary">Book a Half Day Session →</a>
+      </div>
+      <div class="delivery-card">
+        <div class="delivery-icon">🎮</div>
+        <div class="delivery-mode-label">Teach Me</div>
+        <h3 class="delivery-title">Learn to build it yourself — no jargon, no code</h3>
+        <p class="delivery-body">We teach your team the Halfdays Method through a hands-on, gamified walkthrough. No tech background required. Your team goes from "I've never built an Agent" to "I just built one" in a single session.</p>
+        <ul class="delivery-features">
+          <li>Guided workshop format — zero jargon</li>
+          <li>Real example: build a Deal Intake Agent from scratch</li>
+          <li>Learn to listen, design outputs, and configure</li>
+          <li>Test with real documents from your pipeline</li>
+          <li>Leave with a deployed Agent and the skills to build the next one</li>
+        </ul>
+        <div class="delivery-ideal">Best for: Teams that want in-house capability and long-term independence.</div>
+        <a href="#book" class="pricing-btn outline">Ask About Workshops →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-header fade-up">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Straightforward pricing. Premium outcomes.</h2>
+  </div>
+  <div class="pricing-grid fade-up">
+    <div class="pricing-card">
+      <div class="pricing-plan">First Agent</div>
+      <div class="pricing-price"><sup>$</sup>799</div>
+      <div class="pricing-period">one-time session</div>
+      <p class="pricing-desc">One Half Day. One Agent. Deployed and working before we leave.</p>
+      <ul class="pricing-features">
+        <li>1:1 workflow discovery with your team</li>
+        <li>Custom Copilot Agent built and deployed</li>
+        <li>Output designed exactly how your team wants it</li>
+        <li>Prompt training so your team uses it confidently</li>
+        <li>30-day refinement support</li>
+      </ul>
+      <a href="#book" class="pricing-btn outline">Book Your Half Day</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-plan">Agent Subscription</div>
+      <div class="pricing-price"><sup>$</sup>999</div>
+      <div class="pricing-period">/ month</div>
+      <p class="pricing-desc">A growing Agent stack, continuously refined as your workflows evolve.</p>
+      <ul class="pricing-features">
+        <li>Everything in First Agent</li>
+        <li>One new Agent built per month</li>
+        <li>Monthly review and output refinement</li>
+        <li>Access to Halfdays RE Agent Library</li>
+        <li>Priority support and iteration requests</li>
+        <li>Quarterly team enablement workshops</li>
+      </ul>
+      <a href="#book" class="pricing-btn primary">Start Subscription</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-plan">Team Workshop</div>
+      <div class="pricing-price"><sup>$</sup>2,400</div>
+      <div class="pricing-period">per workshop</div>
+      <p class="pricing-desc">Teach your team to build Agents themselves. Hands-on, gamified, zero jargon.</p>
+      <ul class="pricing-features">
+        <li>Half-day workshop (up to 12 people)</li>
+        <li>Build a real Agent live during the session</li>
+        <li>The Halfdays Method playbook included</li>
+        <li>Each attendee leaves with a deployed Agent</li>
+        <li>On-site or virtual</li>
+      </ul>
+      <a href="#book" class="pricing-btn outline">Enquire About Workshops</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial-section">
+  <div class="testimonial-inner fade-up">
+    <blockquote class="t-quote">
+      We had Microsoft 365 Copilot deployed for eight months and weren't using it for anything meaningful. Halfdays came in, built a deal pipeline Agent in four hours, and now our Monday morning reports write themselves. I wish we'd done this on day one.
+    </blockquote>
+    <div class="t-author-name">VP of Acquisitions, Regional Development Firm</div>
+    <div class="t-author-role">50-person team · Mid-Atlantic portfolio</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section" id="book">
+  <div class="cta-inner fade-up">
+    <div class="section-label" style="text-align:center">Get Started</div>
+    <h2 class="cta-title">One conversation. One Agent.<br>Zero wasted seats.</h2>
+    <p class="cta-body">Book a free 30-minute discovery call. We'll identify the single workflow causing the most pain in your team and map out how a custom Copilot Agent solves it — before you spend a dollar.</p>
+    <a href="mailto:hello@halfdays.ai" class="btn-primary" style="display:inline-flex; font-size:16px; padding:15px 34px;">Book Free Discovery Call →</a>
+    <p class="cta-note">No pitch deck. No commitment. Just an honest conversation about your workflows.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">Halfdays</a>
+    <span class="footer-note">Microsoft Copilot Agents for Real Estate Development Teams</span>
+    <ul class="footer-links">
+      <li><a href="#what-is">What Are Agents?</a></li>
+      <li><a href="#agents">Agent Library</a></li>
+      <li><a href="#how">The Method</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#book">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+function showAgent(id, btn) {
+  document.querySelectorAll('.agent-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.agent-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 80 * (parseInt(entry.target.dataset.delay||0)));
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-up').forEach((el, i) => {
+  el.dataset.delay = i % 5;
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
